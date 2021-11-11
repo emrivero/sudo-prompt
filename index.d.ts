@@ -7,9 +7,10 @@ export function exec(
         stderr?: string | Buffer
       ) => void)
     | { name?: string; icns?: string; env?: { [key: string]: string } },
-  callback?: (
+  done?: (
     error?: Error,
     stdout?: string | Buffer,
     stderr?: string | Buffer
-  ) => void
+  ) => void,
+  afterPrompt?: (chunk?: any) => void
 ): void;

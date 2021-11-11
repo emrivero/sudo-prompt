@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/jorangreef/sudo-prompt#readme",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test-simple.js"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",

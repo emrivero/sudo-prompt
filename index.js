@@ -4,20 +4,23 @@ const Windows = require("./lib/windows");
 const { ValidName } = require("./lib/utils");
 const util = require("util");
 
-function Attempt(instance, end) {
+function Attempt(instance, end, afterPrompt) {
   var platform = process.platform;
   if (platform === "darwin") return Mac(instance, end);
-  if (platform === "linux") return Linux(instance, end);
-  if (platform === "win32") return Windows(instance, end);
+  if (platform === "linux") return Linux(instance, end, afterPrompt);
+  if (platform === "win32") return Windows(instance, end, afterPrompt);
   end(new Error("Platform not yet supported."));
 }
 
 function Exec() {
-  if (arguments.length < 1 || arguments.length > 3) {
+  if (arguments.length < 1 || arguments.length > 4) {
     throw new Error("Wrong number of arguments.");
   }
   var command = arguments[0];
   var options = {};
+  var afterPrompt = util.isFunction(arguments[3])
+    ? arguments[3]
+    : function () {};
   var end = function () {};
   if (typeof command !== "string") {
     throw new Error("Command should be a string.");
@@ -113,7 +116,7 @@ function Exec() {
     uuid: undefined,
     path: undefined,
   };
-  Attempt(instance, end);
+  Attempt(instance, end, afterPrompt);
 }
 
 module.exports.exec = Exec;
