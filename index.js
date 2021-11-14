@@ -4,44 +4,15 @@ const Windows = require("./lib/windows");
 const { ValidName } = require("./lib/utils");
 const util = require("util");
 
-function Attempt(instance, end) {
+function Attempt(instance, end, afterPrompt) {
   var platform = process.platform;
   if (platform === "darwin") return Mac(instance, end);
-  if (platform === "linux") return Linux(instance, end);
-  if (platform === "win32") return Windows(instance, end);
+  if (platform === "linux") return Linux(instance, end, afterPrompt);
+  if (platform === "win32") return Windows(instance, end, afterPrompt);
   end(new Error("Platform not yet supported."));
 }
 
-function Exec() {
-  if (arguments.length < 1 || arguments.length > 3) {
-    throw new Error("Wrong number of arguments.");
-  }
-  var command = arguments[0];
-  var options = {};
-  var end = function () {};
-  if (typeof command !== "string") {
-    throw new Error("Command should be a string.");
-  }
-  if (arguments.length === 2) {
-    if (util.isObject(arguments[1])) {
-      options = arguments[1];
-    } else if (util.isFunction(arguments[1])) {
-      end = arguments[1];
-    } else {
-      throw new Error("Expected options or callback.");
-    }
-  } else if (arguments.length === 3) {
-    if (util.isObject(arguments[1])) {
-      options = arguments[1];
-    } else {
-      throw new Error("Expected options to be an object.");
-    }
-    if (util.isFunction(arguments[2])) {
-      end = arguments[2];
-    } else {
-      throw new Error("Expected callback to be a function.");
-    }
-  }
+function Exec(command, options, end, afterPrompt) {
   if (/^sudo/i.test(command)) {
     return end(new Error('Command should not be prefixed with "sudo".'));
   }
@@ -113,7 +84,7 @@ function Exec() {
     uuid: undefined,
     path: undefined,
   };
-  Attempt(instance, end);
+  Attempt(instance, end, afterPrompt);
 }
 
 module.exports.exec = Exec;

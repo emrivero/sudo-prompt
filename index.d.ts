@@ -1,15 +1,15 @@
 export function exec(
   cmd: string,
-  options?:
-    | ((
-        error?: Error,
-        stdout?: string | Buffer,
-        stderr?: string | Buffer
-      ) => void)
-    | { name?: string; icns?: string; env?: { [key: string]: string } },
-  callback?: (
+  options?: {
+    name?: string;
+    icns?: string;
+    env?: { [key: string]: string };
+    pollDelay?: number;
+  },
+  done?: (
     error?: Error,
     stdout?: string | Buffer,
     stderr?: string | Buffer
-  ) => void
+  ) => void,
+  afterPrompt?: (chunk?: any) => void
 ): void;
