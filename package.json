@@ -1,12 +1,12 @@
 {
-  "name": "sudo-prompt",
-  "version": "9.2.1",
+  "name": "@emrivero/sudo-prompt",
+  "version": "1.1.2",
   "description": "Run a command using sudo, prompting the user with an OS dialog if necessary",
   "main": "index.js",
   "types": "index.d.ts",
   "files": [
     "LICENSE",
-    "README.md",
+    "lib",
     "index.d.ts",
     "index.js",
     "package.json",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jorangreef/sudo-prompt.git"
+    "url": "git+https://github.com/emrivero/sudo-prompt.git"
   },
   "keywords": [
     "sudo",
@@ -34,11 +34,11 @@
   "author": "Joran Dirk Greef",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jorangreef/sudo-prompt/issues"
+    "url": "https://github.com/emrivero/sudo-prompt/issues"
   },
-  "homepage": "https://github.com/jorangreef/sudo-prompt#readme",
+  "homepage": "https://github.com/emrivero/sudo-prompt#readme",
   "scripts": {
-    "test": "node test-simple.js"
+    "test": "node test.js"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",
